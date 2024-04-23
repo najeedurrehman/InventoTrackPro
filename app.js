@@ -1,7 +1,17 @@
 const express = require("express");
+const bodyParser = require("body-parser");
+
+
+
 const app = express();
 
-require("dotenv").config();
-app.listen(process.env.PORT || PORT, () => {
-  console.log("SERVER START.");
-});
+/* ACCEPT ONLY JSON FORMAT */
+app.use(bodyParser.json());
+
+
+/* ROUTE FILE's */
+const roleRoute = require("./routes/roleRoute");
+
+/* API POINT */
+app.use("/api/role", roleRoute);
+module.exports = app;
