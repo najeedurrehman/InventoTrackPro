@@ -4,7 +4,7 @@ const messageStore = require("../../util/messageStore");
 /* GET ALL ROLE'S */
 const getAllRoles = async (_request, _response) => {
   try {
-    const roles = await role.where().find({});
+    const roles = await role.find({}, "_id name", { sort: { createdOn: -1 } });
     _response.status(200).json(roles);
   } catch (err) {
     _response.status(500).json(messageStore.internalServerError(err));
@@ -14,7 +14,8 @@ const getAllRoles = async (_request, _response) => {
 /* GET SINGAL ROLE VIA ID */
 const getRoleById = async (_request, _response) => {
   try {
-    const response = await role.findById(_request.params?.id);
+    const { id } = _request?.params;
+    const response = await role.findById({ _id: id }, "_id name");
     _response.status(200).json(response);
   } catch (err) {
     _response.status(500).json(messageStore.internalServerError(err));
@@ -24,7 +25,8 @@ const getRoleById = async (_request, _response) => {
 /* GET ROLE BY NAME */
 const getRoleByName = async (_request, _response) => {
   try {
-    const record = await role.findOne({ name: _request.params?.name });
+    const { name } = _request?.params;
+    const record = await role.findOne({ name: name });
     _response.status(200).json(record);
   } catch (err) {
     _response.status(500).json(messageStore.internalServerError(err));
@@ -32,7 +34,7 @@ const getRoleByName = async (_request, _response) => {
 };
 /* CREATE NEW ROLE */
 const createRole = async (_request, _response) => {
-  const { name } = _request.body;
+  const { name } = _request?.body;
   const defineRole = {
     name: name,
     modifiedOn: Date.now(),
@@ -50,14 +52,36 @@ const createRole = async (_request, _response) => {
 };
 /* UPDATE ROLE */
 const updateRole = async (_request, _response) => {
-  
-  clg(_request.params?.roleId);
-  _response.status(200).send("OK");
-
+  try {
+    const { id } = _request?.params;
+    const { name } = _request?.body;
+    const newDocument = {
+      modifiedOn: Date.now(),
+      name: name,
+    };
+    const result = await role.findByIdAndUpdate(
+      { _id: id },
+      newDocument,
+      {
+        new: true,
+      }
+    );
+    _response.status(200).json(result);
+  } catch (err) {
+    _response.status(500).json(messageStore.internalServerError(err));
+  }
 };
 /* DELETE ROLE */
 const deleteRole = async (_request, _response) => {
-
+  const { id } = _request?.params;
+  try {
+    const result = await role.deleteOne({
+      _id: id,
+    });
+    _response.status(204).send();
+  } catch (err) {
+    _response.status(500).json(messageStore.internalServerError(err));
+  }
 };
 module.exports = {
   createRole,
@@ -65,5 +89,5 @@ module.exports = {
   getRoleById,
   getAllRoles,
   updateRole,
-  deleteRole
+  deleteRole,
 };

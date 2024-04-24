@@ -16,12 +16,11 @@ const roleSchema = new Schema(
   },
   {
     statics: {
-      findByRoleName: async function (param) {
-        return await this.find({ name: param });
+      findByRoleName: async function (name) {
+        return await this.find({ name: name });
       },
-      findByRoleId: async function (param) {
-        console.log(param,"RoleScheme")
-        return await this.findById({id:param});
+      findByRoleId: async function (id) {
+        return await this.findById({_id:id});
       },
     },
   }
