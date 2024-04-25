@@ -2,7 +2,8 @@ const express = require("express");
 const route = express.Router();
 
 const createRoleValidator = require("../validators/roles/createRoleValidator");
-const roleIdValidator = require("../validators/roles/role_IdValidator");
+const idValidator = require("../validators/IDValidator");
+const roleExistenceChecker = require("../validators/roles/roleExistenceChecker");
 /* CONTROLLER FILE   */
 const {
   getRoleById,
@@ -16,11 +17,17 @@ const {
 /* CREATE NEW ROLE */
 route.post("/", createRoleValidator, createRole);
 /* UPDATE ROLE */
-route.put("/:id", roleIdValidator, createRoleValidator, updateRole);
+route.put(
+  "/:id",
+  idValidator,
+  roleExistenceChecker,
+  createRoleValidator,
+  updateRole
+);
 /* DELETE ROLE */
-route.delete("/:id", roleIdValidator, deleteRole);
+route.delete("/:id", idValidator, roleExistenceChecker, deleteRole);
 /* GET ROLE BY ID */
-route.get("/:id", roleIdValidator, getRoleById);
+route.get("/:id", idValidator, roleExistenceChecker, getRoleById);
 /* GET ROLE BY NAME  */
 route.get("/name/:name", getRoleByName);
 /* GET ALL ROLE */

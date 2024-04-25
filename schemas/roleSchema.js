@@ -20,10 +20,11 @@ const roleSchema = new Schema(
         return await this.find({ name: name });
       },
       findByRoleId: async function (id) {
-        return await this.findById({_id:id});
+        return await this.findById({ _id: id });
       },
     },
   }
 );
 
-module.exports = roleSchema;
+const roleModel = new mongoose.model("role", roleSchema);
+module.exports = roleModel;

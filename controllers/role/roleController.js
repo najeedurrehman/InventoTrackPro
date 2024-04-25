@@ -1,4 +1,4 @@
-const role = require("../../models/roleModel");
+const role = require("../../schemas/roleSchema");
 const messageStore = require("../../util/messageStore");
 
 /* GET ALL ROLE'S */
@@ -59,13 +59,9 @@ const updateRole = async (_request, _response) => {
       modifiedOn: Date.now(),
       name: name,
     };
-    const result = await role.findByIdAndUpdate(
-      { _id: id },
-      newDocument,
-      {
-        new: true,
-      }
-    );
+    const result = await role.findByIdAndUpdate({ _id: id }, newDocument, {
+      new: true,
+    });
     _response.status(200).json(result);
   } catch (err) {
     _response.status(500).json(messageStore.internalServerError(err));

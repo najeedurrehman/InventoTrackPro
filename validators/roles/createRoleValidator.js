@@ -1,6 +1,6 @@
 const { body, validationResult } = require("express-validator");
 
-const roleModel = require("../../models/roleModel");
+const roleModel = require("../../schemas/roleSchema");
 
 const validator = [
   body("name")
