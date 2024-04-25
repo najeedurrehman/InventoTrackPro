@@ -6,10 +6,7 @@ const userScheme = new Schema({
     type: String,
     required: true,
   },
-  middlename: {
-    type: String,
-    required: true,
-  },
+  middlename: String,
   lastname: {
     type: String,
     required: true,
