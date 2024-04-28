@@ -23,12 +23,19 @@ const userScheme = new Schema(
       required: true,
       lowercase: true,
     },
+    password: {
+      type: String,
+    },
     createdOn: {
       type: Date,
       default: Date.now,
     },
     modifiedOn: {
       type: Date,
+    },
+    role: {
+      type: Schema.Types.ObjectId,
+      ref: "role",
     },
   },
   {
@@ -45,6 +52,5 @@ const userScheme = new Schema(
     },
   }
 );
-
 const userModel = new mongoose.model("user", userScheme);
 module.exports = userModel;

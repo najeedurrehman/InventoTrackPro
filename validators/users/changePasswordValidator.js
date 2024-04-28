@@ -1,15 +1,9 @@
 const { validationResult } = require("express-validator");
 
-/* INCLUDE VALIDAT */
-const basicInfoValidator = require("./validationSchemas/basicInfoValidator");
-const emailValidator = require("./validationSchemas/emailValidator");
-const userNameValidator = require("./validationSchemas/usernameValidator");
+/* INCLUDE VALIDATOR */
 const passwordValidator = require("./validationSchemas/passwordValidator");
 
-const createUserValidator = [
-  ...basicInfoValidator,
-  ...emailValidator,
-  ...userNameValidator,
+const changePasswordValidator = [
   ...passwordValidator,
   (request, response, next) => {
     const validationErrors = validationResult(request);
@@ -21,4 +15,4 @@ const createUserValidator = [
     next();
   },
 ];
-module.exports = createUserValidator;
+module.exports = changePasswordValidator;

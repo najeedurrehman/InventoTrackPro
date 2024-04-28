@@ -13,6 +13,12 @@ const roleSchema = new Schema(
       default: Date.now,
     },
     modifiedOn: Date,
+    users: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "user",
+      },
+    ],
   },
   {
     statics: {
@@ -25,6 +31,5 @@ const roleSchema = new Schema(
     },
   }
 );
-
 const roleModel = new mongoose.model("role", roleSchema);
 module.exports = roleModel;

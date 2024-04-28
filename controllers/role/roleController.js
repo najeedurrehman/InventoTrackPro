@@ -79,6 +79,21 @@ const deleteRole = async (_request, _response) => {
     _response.status(500).json(messageStore.internalServerError(err));
   }
 };
+/* ROLE WITH USER */
+const roleWithUsers = async (_request, _response) => {
+  const { id } = _request?.params;
+
+  try {
+    const result = await role.findById({ _id: id },"_id name").populate("users","_id firstname middlename lastname email username");
+    return _response.status(200).json(result);
+  } catch (err) {
+    return _response
+      .status(500)
+      .json(
+        messageStore.internalServerError(messageStore.internalServerError(err))
+      );
+  }
+};
 module.exports = {
   createRole,
   getRoleByName,
@@ -86,4 +101,5 @@ module.exports = {
   getAllRoles,
   updateRole,
   deleteRole,
+  roleWithUsers,
 };
