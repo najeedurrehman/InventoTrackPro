@@ -1,5 +1,5 @@
-const role = require("../../schemas/roleSchema");
-const messageStore = require("../../util/messageStore");
+const role = require("../schemas/roleSchema");
+const messageStore = require("../util/messageStore");
 
 /* GET ALL ROLE'S */
 const getAllRoles = async (_request, _response) => {

@@ -13,7 +13,7 @@ const {
   updateRole,
   deleteRole,
   roleWithUsers,
-} = require("../controllers/role/roleController");
+} = require("../controllers/roleController");
 
 /* CREATE NEW ROLE */
 route.post("/", roleValidator, createRole);

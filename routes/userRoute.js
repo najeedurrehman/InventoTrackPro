@@ -15,10 +15,13 @@ const {
   updateUser,
   getUser,
   changePassword,
+  authenticateUser,
 } = require("../controllers/userController");
 
 userRoute.get("/:id", idValidator, isIDExist, getUser);
 userRoute.get("/", getAllUsers);
+/* AUTHENTICATION */
+userRoute.post("/login", authenticateUser);
 userRoute.post("/", createUserValidator, createUser);
 userRoute.put("/:id", idValidator, isIDExist, updateUserValidator, updateUser);
 userRoute.put(
@@ -28,5 +31,7 @@ userRoute.put(
   changePasswordValidator,
   changePassword
 );
+
+
 userRoute.delete("/:id", idValidator, isIDExist, deleteUser);
 module.exports = userRoute;

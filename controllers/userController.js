@@ -1,8 +1,68 @@
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const userModel = require("../schemas/userScheme");
 const roleModel = require("../schemas/roleSchema");
 const messageStore = require("../util/messageStore");
+
+require("dotenv").config();
+
+/* TOKEN GENERATOR */
+const tokenGenerator = async (payload) => {
+  const expireTime = 3 * 24 * 60 * 60; /* THREE DAY IN SECOND */
+  const token = await jwt.sign(payload, process.env.SECRETKEY, {
+    expiresIn: expireTime,
+  });
+  return token;
+};
+/* READ ARTICLE https://expressjs.com/en/advanced/best-practice-security.html#use-cookies-securely */
+/* AUTHENTICATE USER FOR LOGIN */
+const authenticateUser = async (_request, _response) => {
+  const authFailedMessage =
+    "Login failed. The username or password you entered is incorrect.";
+
+  const { email, password } = _request?.body;
+  try {
+    const user = await userModel
+      .findOne({ email: email }, "_id email password")
+      .populate("role", "_id name");
+
+    if (user == null)
+      return _response.status(400).json({
+        message: authFailedMessage,
+      });
+
+    const encryptedPassword = user?.password;
+    const verifyPassword = await bcrypt.compare(password, encryptedPassword);
+
+    if (!verifyPassword)
+      return _response.status(400).json({
+        message: authFailedMessage,
+      });
+
+    const {
+      _id,
+      role: { name },
+    } = user;
+
+    const definePayload = {
+      id: _id,
+      role: name,
+    };
+
+    const token = await tokenGenerator(definePayload);
+    const maxAge = 3 * 24 * 60 * 60 * 1000;
+    _response.cookie("token", token, {
+      httpOnly: true,
+      maxAge: maxAge,
+    });
+    return _response.status(200).json({
+      message: "Welcome back! You're logged in.",
+    });
+  } catch (err) {
+    return _response.status(500).json(messageStore.internalServerError(err));
+  }
+};
 
 /* DELETE USER */
 const deleteUser = async (_request, _response) => {
@@ -154,4 +214,5 @@ module.exports = {
   getAllUsers,
   getUser,
   changePassword,
+  authenticateUser,
 };
