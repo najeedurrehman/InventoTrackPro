@@ -2,7 +2,7 @@ const express = require("express");
 const route = express.Router();
 
 const roleValidator = require("../validators/roles/roleValidator");
-const idValidator = require("../validators/IDValidator");
+const idValidator = require("../validators/id_validator");
 const roleExistenceChecker = require("../validators/roles/roleExistenceChecker");
 /* CONTROLLER FILE   */
 const {

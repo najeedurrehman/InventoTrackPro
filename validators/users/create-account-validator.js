@@ -1,10 +1,10 @@
 const { validationResult } = require("express-validator");
 
 /* INCLUDE VALIDAT */
-const basicInfoValidator = require("./validationSchemas/basicInfoValidator");
-const emailValidator = require("./validationSchemas/emailValidator");
-const userNameValidator = require("./validationSchemas/usernameValidator");
-const passwordValidator = require("./validationSchemas/passwordValidator");
+const basicInfoValidator = require("./validationSchemas/basic-account-info-validation");
+const emailValidator = require("./validationSchemas/email-validation-signup");
+const userNameValidator = require("./validationSchemas/username-validaton");
+const passwordValidator = require("./validationSchemas/password-validation");
 
 const createUserValidator = [
   ...basicInfoValidator,
