@@ -1,6 +1,6 @@
 /* SCHEME FILE */
-const roleModel = require("../schemas/roleSchema");
-const userModel = require("../schemas/userScheme");
+const roleModel = require("../schemas/role-scheme");
+const userModel = require("../schemas/user-scheme");
 
 /* PACKAGES */
 const jwt = require("jsonwebtoken");
@@ -20,6 +20,7 @@ const tokenGenerator = async (payload) => {
 
 /* CONTROLLER'S */
 const signIn = async (req, res) => {
+  console.log(req?.host);
   const { email, password } = req?.body;
   const authenticationFailed =
     "Login failed. The email or password you entered is incorrect.";

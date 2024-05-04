@@ -13,9 +13,9 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 
 /* ROUTE FILE's */
-const roleRoute = require("./routes/roleRoute");
-const accountRoute = require("./routes/accountRoute");
-//const userRoute = require("./routes/userRoute");
+const roleRoute = require("./routes/role-route");
+const accountRoute = require("./routes/account-route");
+const profileRoute = require("./routes/profile-route");
 
 /* API POINT */
 app.use(
@@ -24,5 +24,7 @@ app.use(
   roleRoute
 );
 app.use("/api/account", accountRoute);
-//app.use("/api/user", userRoute);
+app.use("/api/profile", profileRoute);
 module.exports = app;
+
+//https://www.toptal.com/json/jwt-nodejs-security

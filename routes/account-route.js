@@ -12,7 +12,7 @@ const {
   signUp,
   logout,
   forgetPassword,
-} = require("../controllers/accountController");
+} = require("../controllers/account-controller");
 
 router.post("/signin", credentialValidator, signIn);
 router.post("/signup", createAccountValidator, signUp);

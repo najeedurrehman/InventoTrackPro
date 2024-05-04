@@ -1,5 +1,5 @@
 const { body } = require("express-validator");
-const userModel = require("../../../schemas/userScheme");
+const userModel = require("../../../schemas/user-scheme");
 const validator = [
   body("username")
     .trim()

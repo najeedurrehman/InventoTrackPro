@@ -1,9 +1,7 @@
 const { validationResult } = require("express-validator");
-const basicInfoValidator = require("./validationSchemas/basicInfoValidator");
-const passwordValidator = require("./validationSchemas/passwordValidator");
+const basicInfoValidator = require("./validationSchemas/basic-account-info-validation");
 const validator = [
   ...basicInfoValidator,
-  ...passwordValidator,
   (req, res, next) => {
     const validationErrors = validationResult(req);
     if (!validationErrors.isEmpty()) {

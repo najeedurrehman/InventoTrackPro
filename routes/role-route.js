@@ -2,7 +2,7 @@ const express = require("express");
 const route = express.Router();
 
 const roleValidator = require("../validators/roles/roleValidator");
-const idValidator = require("../validators/id_validator");
+const idValidator = require("../validators/id-validator");
 const roleExistenceChecker = require("../validators/roles/roleExistenceChecker");
 
 /* CONTROLLER FILE   */
@@ -14,7 +14,7 @@ const {
   updateRole,
   deleteRole,
   roleWithUsers,
-} = require("../controllers/roleController");
+} = require("../controllers/role-controller");
 
 /* CREATE NEW ROLE */
 route.post("/", roleValidator, createRole);

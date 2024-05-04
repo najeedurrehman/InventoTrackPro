@@ -8,7 +8,9 @@ module.exports = (roles = []) => {
       const { role } = jwt.decode(auth_token);
 
       if (!roles.includes(role))
-        return res.status(401).json({ error: "Access denied." });
+        return res
+          .status(403)
+          .json({ error: "Unauthorized access detected. Access denied." });
       next();
     },
   ];
