@@ -2,28 +2,21 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 
-const tokenChecker = require("./middleware/token-checker-middleware");
-const authorizedPerson = require("./middleware/role-checker-middleware");
-const roleHelper = require("./helper/role-helper");
-
 const app = express();
 
-/* SETUP MIDDLEWARE. */
-app.use(bodyParser.json());
+/* MIDDLEWARE CHAINING */
 app.use(cookieParser());
+app.use(bodyParser.json());
 
-/* ROUTE FILE's */
-const roleRoute = require("./routes/role-route");
-const accountRoute = require("./routes/account-route");
-const profileRoute = require("./routes/profile-route");
+const { roleHelper } = require("./util/utilities");
+const { authorization, authentication } = require("./middleware/middlewares");
+const { accountRoute, roleRoute, profileRoute } = require("./routes/routes");
 
 /* API POINT */
-app.use(
-  "/api/role",
-  [tokenChecker, authorizedPerson([roleHelper.Admin])],
-  roleRoute
-);
 app.use("/api/account", accountRoute);
+
+app.use("*", authentication);
+app.use("/api/role", authorization([roleHelper.Admin]), roleRoute);
 app.use("/api/profile", profileRoute);
 module.exports = app;
 

@@ -1,5 +1,5 @@
 const { param, validationResult } = require("express-validator");
-const roleModel = require("../../schemas/role-scheme");
+const roleModel = require("../../schemas/models/role-scheme");
 const validator = [
   param("id").custom(async (value) => {
     const result = await roleModel.findByRoleId(value);

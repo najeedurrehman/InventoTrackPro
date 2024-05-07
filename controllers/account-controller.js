@@ -1,6 +1,4 @@
-/* SCHEME FILE */
-const roleModel = require("../schemas/role-scheme");
-const userModel = require("../schemas/user-scheme");
+const { userModel, roleModel } = require("../schemas/schemas");
 
 /* PACKAGES */
 const jwt = require("jsonwebtoken");

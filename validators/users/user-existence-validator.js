@@ -1,5 +1,5 @@
 const { param, validationResult } = require("express-validator");
-const userModel = require("../../schemas/user-scheme");
+const userModel = require("../../schemas/models/user-scheme");
 const validator = [
   param("id").custom(async (value) => {
     const result = await userModel.isIDExist(value);

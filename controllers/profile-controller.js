@@ -1,5 +1,5 @@
-const userModel = require("../schemas/user-scheme");
-const roleModel = require("../schemas/role-scheme");
+const { userModel, roleModel } = require("../schemas/schemas");
+
 /* DELETE USER */
 const deleteUser = async (req, res) => {
   const { id } = req?.params;
