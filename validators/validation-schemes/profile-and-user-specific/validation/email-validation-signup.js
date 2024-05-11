@@ -1,5 +1,5 @@
 const { body } = require("express-validator");
-const userModel = require("../../../schemas/models/user-scheme");
+const userModel = require("../../../../schemas/models/user-scheme");
 const validator = [
   body("email")
     .escape()
@@ -15,9 +15,9 @@ const validator = [
     .custom(async (value) => {
       const result = await userModel.isEmailTaken(value);
 
-      if (result.length == 0) {
+      if (result.length > 0) {
         throw new Error(
-          `We couldn't find an account associated with the email address.`
+          `The email ${value} is already in use. Please try a different email.`
         );
       }
     }),

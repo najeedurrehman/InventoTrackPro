@@ -1,22 +1,24 @@
 const { Router } = require("express");
 const router = Router();
 
-const tokenChecker = require("../../middleware/auth/token-checker-middleware");
-/* MIDDLEWARE. */
-const createAccountValidator = require("../../validators/users/create-account-validator");
-const credentialValidator = require("../../validators/users/credential-validator");
-const forgetPasswordValidator = require("../../validators/users/change-password-validator");
+// const {
+//   profileAndUserValidator: {
+//     credentialValidator,
+//     createAccountValidator,
+//     changePasswordValidator,
+//   },
+// } = require("../../validators/validation-chaining/validator");
 
-const {
-  signIn,
-  signUp,
-  logout,
-  forgetPassword,
-} = require("../../controllers/account-controller");
+// const {
+//   signIn,
+//   signUp,
+//   logout,
+//   forgetPassword,
+// } = require("../../controllers/account-controller");
 
-router.post("/signin", credentialValidator, signIn);
-router.post("/signup", createAccountValidator, signUp);
-router.post("/logout", tokenChecker, logout);
-router.post("/forget-password", forgetPasswordValidator, forgetPassword);
+// router.post("/signin", credentialValidator, signIn);
+// router.post("/signup", createAccountValidator, signUp);
+// router.post("/logout", logout);
+// router.post("/forget-password", changePasswordValidator, forgetPassword);
 
 module.exports = router;

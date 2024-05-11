@@ -1,11 +1,12 @@
+const { roleModel } = require("../../../../schemas/schemas");
 const { param, validationResult } = require("express-validator");
-const userModel = require("../../schemas/models/user-scheme");
-const validator = [
+
+module.exports = [
   param("id").custom(async (value) => {
-    const result = await userModel.isIDExist(value);
+    const result = await roleModel.findByRoleId(value);
     if (result == null) {
       throw new Error(
-        `We couldn't find a user associated with this profile Id ${value}.`
+        `We couldn't find a role associated with this Role Id ${value}.`
       );
     }
   }),
@@ -19,5 +20,3 @@ const validator = [
     next();
   },
 ];
-
-module.exports = validator;

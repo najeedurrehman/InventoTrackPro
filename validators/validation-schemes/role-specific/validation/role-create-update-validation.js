@@ -1,8 +1,6 @@
+const {roleModel} = require('../../../../schemas/schemas');
 const { body, validationResult } = require("express-validator");
-
-const roleModel = require("../../schemas/models/role-scheme");
-
-const validator = [
+module.exports = [
   body("name")
     .trim()
     .notEmpty()
@@ -33,5 +31,3 @@ const validator = [
     next();
   },
 ];
-
-module.exports = validator;

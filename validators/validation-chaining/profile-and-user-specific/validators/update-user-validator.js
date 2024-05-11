@@ -1,7 +1,9 @@
 const { validationResult } = require("express-validator");
-const basicInfoValidator = require("./validationSchemas/basic-account-info-validation");
+
+const {basicAccountInfoValidation} = require("../../../validation-schemes/profile-and-user-specific/profile-and-user-validation");
+
 const validator = [
-  ...basicInfoValidator,
+  basicAccountInfoValidation,
   (req, res, next) => {
     const validationErrors = validationResult(req);
     if (!validationErrors.isEmpty()) {
@@ -12,5 +14,4 @@ const validator = [
     next();
   },
 ];
-
 module.exports = validator;

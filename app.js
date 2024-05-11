@@ -13,11 +13,10 @@ const { authorization, authentication } = require("./middleware/middlewares");
 const { accountRoute, roleRoute, profileRoute } = require("./routes/routes");
 
 /* API POINT */
-app.use("/api/account", accountRoute);
-
-app.use("*", authentication);
-app.use("/api/role", authorization([roleHelper.Admin]), roleRoute);
-app.use("/api/profile", profileRoute);
+//app.use("/api/account", accountRoute);
+//app.use("*", authentication);
+app.use("/api/role", roleRoute);
+//app.use("/api/profile", profileRoute);
 module.exports = app;
 
 //https://www.toptal.com/json/jwt-nodejs-security
